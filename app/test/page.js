@@ -896,6 +896,189 @@ const Test = () => {
   // 5. Array Manipulation with Objects
 
   console.log("getTopRatedFilms", getTopRatedFilms);
+
+  // Objects and Array of Objects
+  // Exercise: Create an object film that contains the following properties: title, director, year, rating. Then, access and print each property individually.
+  const person = {
+    name: "Chris",
+    age: 24,
+  };
+  const filmObject = {
+    title: "All quiet on the western front",
+    director: "Christopher Nolan",
+    year: 2022,
+    rating: 10,
+  };
+
+  console.log(
+    `Ttile : ${filmObject.title}, Director:  ${filmObject.director}, Year: ${filmObject.year}, Rating: ${filmObject.rating}`
+  );
+
+  // Exercise: Write a function removeProperty that takes an object and a property name as arguments and deletes the specified property from the object.
+  const removeProperty = (obj, property) => {
+    delete obj[property];
+    return obj;
+  };
+  removeProperty(person, "age");
+
+  // Exercise: Write a function hasProperty that checks if an object has a specified property. Return true or false.
+  const hasProperty = (obj, property) => {
+    return property in obj;
+  };
+  console.log("hasProperty", hasProperty(filmObject, "title"));
+
+  // Exercise: Create an object person with a name and age property. Add a new property address and update the age property. Then, print the updated object.
+
+  const updatedObject = { ...person, age: 20, address: "New york" };
+  console.log("person", person, "updatedObject", updatedObject);
+
+  // Exercise: Given an object film = { title: "Inception", director: "Nolan", year: 2010 }, use object destructuring to extract the properties into individual variables.
+  const { title, director, year } = filmObject;
+
+  // 2. Working with Arrays of Objects
+  // Exercise: Create an array films where each item is an object with properties: title, director, year, and rating. Access the second film’s title and rating.
+  const filmsArrayOfObjects = [
+    {
+      id: 1,
+      title: "All quiet on the western front",
+      director: "Christopher Nolan",
+      year: 2022,
+      rating: 10,
+    },
+    {
+      id: 2,
+      title: "Oppenheimer",
+      director: "Christopher Nolan",
+      year: 2024,
+      rating: 10,
+    },
+  ];
+  console.log(
+    "second film title",
+    filmsArrayOfObjects[1].title,
+    "second film rating",
+    filmsArrayOfObjects[1].rating
+  );
+
+  // Exercise: Write a function findFilmByTitle that takes an array of films and a title, and returns the film object with the matching title.
+  const findFilmByTitle = (objects, title) => {
+    const requiredObject = objects.find((film) => film.title.includes(title));
+    return requiredObject;
+  };
+  console.log(
+    "findFilmByTitle",
+    findFilmByTitle(filmsArrayOfObjects, "Oppenheimer")
+  );
+
+  // Exercise: Write a function updateFilmRating that takes an array of films, a title, and a new rating. It should update the film’s rating in the array and return the updated array.
+  const updateFilmRatingNew = (objects, title, newRating) => {
+    const updatedFilms = objects.map((film) =>
+      film.title === title ? { ...film, rating: newRating } : film
+    );
+    return updatedFilms;
+  };
+
+  console.log(
+    "updateFilmRatingNew",
+    updateFilmRatingNew(filmsArrayOfObjects, "Oppenheimer", 9)
+  );
+
+  // Exercise: Write a function removeFilm that takes an array of films and a title, then removes the film with that title from the array.
+  const removeFilm = (objects, title) => {
+    const requiredObject = objects.filter(
+      (film) => !film.title.includes(title)
+    );
+    return requiredObject;
+  };
+  console.log("removeFilm", removeFilm(filmsArrayOfObjects, "Oppenheimer"));
+
+  // Exercise: Write a function hasFilmWithRatingAbove that takes an array of films and a rating threshold, and checks if any film has a rating above the threshold.
+  const hasFilmWithRatingAbove = (objects, ratingThreshold) => {
+    return objects.some((film) => film.rating > ratingThreshold);
+  };
+  console.log(
+    "hasFilmWithRatingAbove",
+    hasFilmWithRatingAbove(filmsArrayOfObjects, 10)
+  );
+
+  // 3. Intermediate Array of Objects Manipulation
+  // Exercise: Write a function sortFilmsByYear that sorts an array of films in descending order of the year property.
+  const sortFilmsByYear = (objects) => {
+    const sortedObjects = objects.sort((a, b) => b.year - a.year);
+    return sortedObjects;
+  };
+  console.log("sortFilmsByYear", sortFilmsByYear(filmsArrayOfObjects));
+
+  // Exercise: Write a function groupFilmsByDirector that groups an array of films by the director property, and returns an object where each key is a director’s name and each value is an array of their films.
+  const groupFilmsByDirectorNew = filmsArrayOfObjects.reduce((acc, film) => {
+    acc[film.director] = acc[film.director] || [];
+    acc[film.director].push(film);
+    return acc;
+  }, {});
+  console.log("groupFilmsByDirectorNew", groupFilmsByDirectorNew);
+
+  // Exercise: Write a function filterFilmsByRating that takes an array of films and a rating threshold, and returns an array of films that have a rating greater than or equal to the threshold.
+  const filterFilmsByRating = (films, ratingThreshold) => {
+    const updatedFilms = films.filter((film) => film.rating >= ratingThreshold);
+    return updatedFilms;
+  };
+  console.log(
+    "filterFilmsByRating",
+    filterFilmsByRating(filmsArrayOfObjects, 2)
+  );
+
+  // Exercise: Write a function extractFilmTitles that maps an array of films to an array of their titles.
+  const extractFilmTitles = filmsArrayOfObjects?.map((film) => film.title);
+
+  // Exercise: Write a function averageRating that calculates the average rating of all films in an array of films.
+  const averageRating =
+    filmsArrayOfObjects.reduce((acc, film) => acc + film.rating, 0) /
+    films.length;
+  console.log("averageRating", averageRating);
+
+  // 6. Object Manipulation with Array Methods
+  // Exercise: Given an array of films, use map() to create a new array where the rating of each film is increased by 1.
+  const newRatings = filmsArrayOfObjects.map((film) => ({
+    ...film,
+    rating: film.rating + 1,
+  }));
+  console.log("newRatings", newRatings);
+
+  // Exercise: Use reduce() to return the total sum of the rating values of all films in an array.
+  const ratingsSum = filmsArrayOfObjects.reduce(
+    (acc, film) => acc + film.rating,
+    0
+  );
+  console.log("ratingsSum", ratingsSum);
+
+  // 7. Miscellaneous Complex Object and Array Manipulation
+  // Exercise: Given an array of films, transform it into an object where each film’s title is a key and its rating is the value.
+  const transformedObjects = filmsArrayOfObjects.reduce((acc, film) => {
+    if (!acc[film.title]) {
+      acc[film.title] = [];
+    }
+
+    acc[film.title].push(film.rating);
+    return acc;
+  }, {});
+  console.log("transformedObjects", transformedObjects);
+
+  // Merge Two Arrays of Objects (Ensuring No Duplicates by Title):
+  const mergeFilms = (array1, array2) => {
+    const mergedArray = [...array1, ...array2];
+    return mergedArray.filter(
+      (film, index, self) =>
+        index === self.findIndex((f) => f.title === film.title)
+    );
+  };
+
+  const mergeFilmsNew = (array1, array2) => {
+    const mergedArray = [...array1, ...array2];
+    return mergedArray.filter(
+      (film, index, self) =>
+        index === self.findIndex((f) => f.title === film.title)
+    );
+  };
 };
 
 export default Test;

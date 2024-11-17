@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const API_URL = process.env.API_URL || "http://localhost:3000/api/v1/moments";
+
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://moments-app-backend-g83q.onrender.com/api/v1/moments",
+    baseUrl: API_URL,
     prepareHeaders: (headers, { getState }) => {
       const state = getState();
       const token = state.authSlice.token;

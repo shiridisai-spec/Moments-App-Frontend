@@ -1,6 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const API_URL = process.env.API_URL || "http://localhost:3000/api/v1/moments";
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://moments-app-backend-g83q.onrender.com/api/v1/moments"
+    : "http://localhost:3000/api/v1/moments";
 
 export const apiSlice = createApi({
   reducerPath: "api",
